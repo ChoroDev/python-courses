@@ -64,7 +64,28 @@ def fifthTask():
 def sixthTask():
     n = int(input('Enter natural three-digit number: '))
 
-    if n // 1000 == 1:
-        print('Not finished yet')
+    if 10 > n // 1000 > 0:
+        nStr = str(n)
+        has0or9 = False
+        for c in nStr:
+            if c == '0':
+                print('There is 0 in this number')
+                has0or9 = True
+            elif c == '9':
+                print('There is 9 in this number')
+                has0or9 = True
+        if not has0or9:
+            print('There is no 0 or 9 in this number')
     else:
         print('Error: number must be three-digit')
+
+
+def seventhTask():
+    Y = int(input('Enter year: '))
+
+    isLeap = False
+    if Y < 0:
+        print('Error: value must be positive')
+    elif Y % 4 == 0:
+        if Y % 100 != 0:
+            print('Not finished yet')
