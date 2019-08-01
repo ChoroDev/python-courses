@@ -87,5 +87,43 @@ def seventhTask():
     if Y < 0:
         print('Error: value must be positive')
     elif Y % 4 == 0:
-        if Y % 100 != 0:
-            print('Not finished yet')
+        if Y % 100 == 0:
+            if Y % 400 == 0:
+                isLeap = True
+        else:
+            isLeap = True
+
+    if isLeap:
+        print('Year is leap')
+    else:
+        print('Year is not leap')
+
+
+def eighthTask():
+    n = int(input('Enter natural three-digit number: '))
+
+    if 10 > n // 1000 > 0:
+        nStr = str(n)
+        isNotEqual = False
+
+        if nStr[0] != nStr[1] and nStr[0] != nStr[2] and nStr[0] != nStr[3]:
+            if nStr[1] != nStr[2] and nStr[1] != nStr[3]:
+                if nStr[2] != nStr[3]:
+                    isNotEqual = True
+        
+        if isNotEqual:
+            print('Digits are not equal')
+        else:
+            print('There are some equal digits')
+    else:
+        print('Error: number must be three-digit')
+
+
+def ninthTask():
+    A = float(input('Enter numerator: '))
+    B = float(input('Enter denominator: '))
+    
+    if A / B >= 1 or A / B <= -1:
+        print('Improper fraction')
+    else:
+        print('Proper fraction')
