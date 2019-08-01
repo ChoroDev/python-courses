@@ -64,7 +64,7 @@ def fifthTask():
 def sixthTask():
     n = int(input('Enter natural three-digit number: '))
 
-    if 10 > n // 1000 > 0:
+    if 10 > n // 100 > 0:
         nStr = str(n)
         has0or9 = False
         for c in nStr:
@@ -102,14 +102,13 @@ def seventhTask():
 def eighthTask():
     n = int(input('Enter natural three-digit number: '))
 
-    if 10 > n // 1000 > 0:
+    if 10 > n // 100 > 0:
         nStr = str(n)
         isNotEqual = False
 
-        if nStr[0] != nStr[1] and nStr[0] != nStr[2] and nStr[0] != nStr[3]:
-            if nStr[1] != nStr[2] and nStr[1] != nStr[3]:
-                if nStr[2] != nStr[3]:
-                    isNotEqual = True
+        if nStr[0] != nStr[1] and nStr[0] != nStr[2]:
+            if nStr[1] != nStr[2]:
+                isNotEqual = True
         
         if isNotEqual:
             print('Digits are not equal')
@@ -123,7 +122,74 @@ def ninthTask():
     A = float(input('Enter numerator: '))
     B = float(input('Enter denominator: '))
     
-    if A / B >= 1 or A / B <= -1:
+    if -1 >= A / B >= 1:
         print('Improper fraction')
     else:
         print('Proper fraction')
+
+
+def tenthTask():
+    n = int(input('Enter natural three-digit number: '))
+
+    if 10 > n // 100 > 0:
+        nStr = str(n)
+
+        sum = 0
+        for c in nStr:
+            sum += int(c)
+
+        if sum % 3 == 0 and n % 3 == 0:
+            print('It\'s true')
+        else:
+            print('Scientists lie')
+    else:
+        print('Error: number must be three-digit')
+
+
+def eleventhTask():
+    a = float(input('Enter first number: '))
+    b = float(input('Enter second number: '))
+    c = float(input('Enter third number: '))
+
+    d = max(a, b, c)
+    print('Max = {0}'.format(d))
+
+
+def twelwethTask():
+    n = int(input('Enter natural two-digit number: '))
+    if 10 > n // 10 > 0:
+        nStr = str(n)
+        has1or9 = False
+        for c in nStr:
+            if c == '1':
+                print('There is 1 in this number')
+                has1or9 = True
+            elif c == '9':
+                print('There is 9 in this number')
+                has1or9 = True
+        if not has1or9:
+            print('There is no 1 or 9 in this number')
+    else:
+        print('Error: number must be two-digit')
+
+
+def thirteenthTask():
+    n = int(input('Enter count of mushrooms: '))
+
+    if n == 1:
+        print('We\'ve found {0} mushroom'.format(n))
+    else:
+        print('We\'ve found {0} mushrooms'.format(n))
+
+
+def fourteenthTask():
+    n = int(input('Enter number in range from 1 to 9: '))
+
+    if 10 > n // 1 > 0:
+        if n == 1:
+            print('I\'m {0} year old'.format(n))
+        else:
+            print('I\'m {0} years old'.format(n))
+    else:
+        print('Error: wrong number')
+
