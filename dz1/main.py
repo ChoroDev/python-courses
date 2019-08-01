@@ -193,3 +193,38 @@ def fourteenthTask():
     else:
         print('Error: wrong number')
 
+
+def fifteenthTask():
+    A = int(input('Enter first number: '))
+    B = int(input('Enter second number: '))
+    C = int(input('Enter third number: '))
+    D = int(input('Enter fourth number: '))
+
+    if A % 2 == 0 or B % 2 == 0 or C % 2 == 0 or D % 2 == 0:
+        print('There is an even among the given numbers')
+    else:
+        print('There is no even among the given numbers')
+
+
+def sixteenthTask():
+    n = int(input('Enter number in range from 0 to 7: '))
+    
+    if 0 <= n <= 7:
+        if n == 0:
+            print('Zero')
+        elif n == 1:
+            print('One')
+        elif n == 2:
+            print('Two')
+        elif n == 3:
+            print('Three')
+        elif n == 4:
+            print('Four')
+        elif n == 5:
+            print('Five')
+        elif n == 6:
+            print('Six')
+        else:
+            print('Seven')
+    else:
+        print('Error: wrong number')
