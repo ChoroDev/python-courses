@@ -208,7 +208,7 @@ def fifteenthTask():
 
 def sixteenthTask():
     n = int(input('Enter number in range from 0 to 7: '))
-    
+
     if 0 <= n <= 7:
         if n == 0:
             print('Zero')
