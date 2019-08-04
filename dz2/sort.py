@@ -4,11 +4,6 @@ from datetime import timedelta
 from prettytable import PrettyTable
 from matplotlib import pyplot
 
-x = []
-y1 = []
-y2 = []
-y3 = []
-
 def fillArray(N = 0, arrayMin = 0, arrayMax = 0):
     if N <= 0:
         N = int(input('Enter count of elements: '))
@@ -69,6 +64,11 @@ def shellSort(array, N):
 
 def plotAndTime():
     table = PrettyTable(['Array size', 'Cocktail time', 'Insert time', 'Shell time'])
+    x = []
+    y1 = []
+    y2 = []
+    y3 = []
+    
     for N in range(1000, 5001, 1000):
         arrayAtStart = fillArray(N, 1, 1000)
     
