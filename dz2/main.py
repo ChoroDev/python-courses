@@ -43,7 +43,7 @@ def task2():
         y = math.sqrt(i * b - b ** 2 * a)
         print('y = ', str(y))
         z = y * math.tan(n / 4) - math.exp(1 + b)
-        print('z = ', str(y))
+        print('z = ', str(z))
     
     print('"While" loop:')
     i = 1
@@ -51,7 +51,7 @@ def task2():
         y = math.sqrt(i * b - b ** 2 * a)
         print('y = ', str(y))
         z = y * math.tan(n / 4) - math.exp(1 + b)
-        print('z = ', str(y))
+        print('z = ', str(z))
         i += 0.5
 
     print('Double loop:')
@@ -63,7 +63,7 @@ def task2():
             y = math.sqrt(i * b - b ** 2 * a)
             print('y = ', str(y))
             z = y * math.tan(n / 4) - math.exp(1 + b)
-            print('z = ', str(y))
+            print('z = ', str(z))
         b += 0.5
 
 
