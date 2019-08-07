@@ -143,7 +143,7 @@ while True:
         )
 
         select = int(input())
-        if i <= select <= 5:
+        if 1 <= select <= 5:
             break
 
     if select == 1:
