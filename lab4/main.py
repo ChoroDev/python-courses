@@ -48,7 +48,7 @@ if filename == '0':
     iris_datasets = load_iris()
 
     for i in range(len(iris_datasets['data'])):
-        iris_list.append(Iris(data = iris_datasets['data'], target = iris_datasets['target'][i]))
+        iris_list.append(Iris(data = iris_datasets['data'][i], target = iris_datasets['target'][i]))
 else:
     if filename[-3:0] != 'csv':
         filename += '.csv'
@@ -67,23 +67,23 @@ else:
     min_num = float(input('Enter min possible value: '))
     max_num = float(input('Enter max possible value: '))
 
-    if filtered_list == 1:
+    if field_num == 1:
         for i in iris_list:
             if min_num <= i.sepal_length <= max_num:
                 filtered_list.append(i)
-    elif filtered_list == 2:
+    elif field_num == 2:
         for i in iris_list:
             if min_num <= i.sepal_width <= max_num:
                 filtered_list.append(i)
-    elif filtered_list == 3:
+    elif field_num == 3:
         for i in iris_list:
             if min_num <= i.petal_length <= max_num:
                 filtered_list.append(i)
-    elif filtered_list == 4:
+    elif field_num == 4:
         for i in iris_list:
             if min_num <= i.petal_width <= max_num:
                 filtered_list.append(i)
-    elif filtered_list == 5:
+    elif field_num == 5:
         for i in iris_list:
             if min_num <= i.target <= max_num:
                 filtered_list.append(i)
