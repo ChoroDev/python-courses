@@ -96,7 +96,7 @@ newTables = [
 
 
 newTrucks = [ Truck(50), Truck(60) ] 
-need = [ 3, 3, ]
+need = [ 3, 3 ]
 
 while True:
     select = 0
