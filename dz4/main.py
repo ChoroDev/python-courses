@@ -1,6 +1,6 @@
 # 9 вариант
 firstFile = 'dz4/f1.txt'
-secondFile = 'f2.txt'
+secondFile = 'dz4/f2.txt'
 chunk_size = 1<<13
 
 
