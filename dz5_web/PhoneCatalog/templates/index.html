@@ -1,26 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Phones</title>
-</head>
-<body>
-<h1>Phone catalog</h1>
-{% if message %}
-    <p><strong>{{ message }}</strong></p>
-{% endif %}
-{% if phones %}
-    <ul>
-        {% for phone in phones %}
-            <li>
-                <a href="/phone_catalog/{{ phone.id }}/">
-                    {{ phone.name }}
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>No phones found.</p>
-{% endif %}
-</body>
-</html>
+{% extends 'base.html' %}
+{% block main %}
+    <h4 class="card-title">Available phones</h4>
+    {% if message %}
+        <p class="alert alert-success">
+            <strong>{{ message }}</strong>
+        </p>
+    {% endif %}
+    {% if phones %}
+        <ul>
+            {% for phone in phones %}
+                <li>
+                    <a href="/phone_catalog/{{ phone.id }}/">
+                        {{ phone.name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No phones found.</p>
+    {% endif %}
+{% endblock %}

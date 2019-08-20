@@ -1,20 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Phone</title>
-</head>
-<body>
-<h1>{{ phone.name }}</h1>
-<p>    <strong>{{ method }}</strong>    </p>
-{% if error_message %}
-    <p>
-        <strong>{{ error_message }}</strong>
-    </p>
-{% endif %}
-{% csrf_token %}
-<p>Tel: {{ phone.phone }}</p>
-<p>Registration date: {{ phone.reg_date }}</p>
-<p>Address: {{ phone.address }}</p>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block main %}
+    <h4 class="card-title">{{ phone.name }}</h4>
+    {% if error_message %}
+        <p class="alert alert-danger">
+            <strong>{{ error_message }}</strong>
+        </p>
+    {% endif %}
+    <p>Tel: {{ phone.phone }}</p>
+    <p>Registration date: {{ phone.reg_date }}</p>
+    <p>Address: {{ phone.address }}</p>
+{% endblock %}
