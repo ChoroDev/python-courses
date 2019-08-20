@@ -1,4 +1,5 @@
-from .models import Riddle, Option
+from .models import Riddle, Option, Message
+from datetime import datetime
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views.generic.edit import FormView
 from django.contrib.auth.forms import UserCreationForm
@@ -8,6 +9,8 @@ from django.http import HttpResponseRedirect
 from django.views.generic.base import View
 from django.contrib.auth import logout
 from django.contrib.auth.forms import PasswordChangeForm
+from django.http import JsonResponse
+import json
 
 
 def index(request):
@@ -29,13 +32,16 @@ def detail(request, riddle_id):
     error_message = None
     if "error_message" in request.GET:
         error_message = request.GET["error_message"]
+    
     return render(
         request,
         "answer.html",
         {
-            "riddle": get_object_or_404(Riddle, pk = riddle_id),
-            "error_message": error_message
-        })
+            "riddle": get_object_or_404(Riddle, pk=riddle_id),
+            "error_message": error_message,
+            "latest_messages": Message.objects.filter(chat_id=riddle_id).order_by('-pub_date')[:5]
+        }
+    )
 
 
 def answer(request, riddle_id):
@@ -55,6 +61,23 @@ def answer(request, riddle_id):
                 '/riddles/' + str(riddle_id) +
                 '?error_message=Wrong Answer!',
             )
+
+
+def post(request, riddle_id):
+    msg = Message()
+    msg.author = request.user
+    msg.chat = get_object_or_404(Riddle, pk=riddle_id)
+    msg.message = request.POST['message']
+    msg.pub_date = datetime.now()
+    msg.save()
+    return HttpResponseRedirect(app_url+str(riddle_id))
+
+
+def msg_list(request, riddle_id):
+    res = list(Message.objects.filter(chat_id=riddle_id).order_by('-pub_date')[:5].values('author__username','pub_date','message'))
+    for r in res:
+        r['pub_date'] = r['pub_date'].strftime('%d.%m.%Y %H:%M:%S')
+    return JsonResponse(json.dumps(res), safe=False)
 
 
 app_url = "/riddles/"
