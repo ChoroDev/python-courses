@@ -1,4 +1,4 @@
-from .models import Riddle, Option, Message
+from .models import Riddle, Option, Message, UserRiddle
 from datetime import datetime
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views.generic.edit import FormView
@@ -13,10 +13,18 @@ from django.http import JsonResponse
 import json
 
 
-def index(request):
+def index(request, riddle_id):
     message = None
     if "message" in request.GET:
         message = request.GET["message"]
+    if "time_spent" in request.GET:
+        riddle = get_object_or_404(Riddle, pk = riddle_id)
+        time_spent = int(request.GET["time_spent"])
+        user_attempt = UserRiddle()
+        user_attempt.user = request.user
+        user_attempt.attempt = 1
+        user_attempt.riddle = riddle
+        user_attempt.time_spent = time_spent
 
     return render(
         request,
@@ -30,6 +38,7 @@ def index(request):
 
 def detail(request, riddle_id):
     error_message = None
+    riddle = get_object_or_404(Riddle, pk = riddle_id)
     if "error_message" in request.GET:
         error_message = request.GET["error_message"]
     
@@ -37,7 +46,7 @@ def detail(request, riddle_id):
         request,
         "answer.html",
         {
-            "riddle": get_object_or_404(Riddle, pk=riddle_id),
+            "riddle": riddle,
             "error_message": error_message,
             "latest_messages": Message.objects.filter(chat_id=riddle_id).order_by('-pub_date')[:5]
         }
@@ -48,18 +57,19 @@ def answer(request, riddle_id):
     riddle = get_object_or_404(Riddle, pk = riddle_id)
     try:
         option = riddle.option_set.get(pk = request.POST['option'])
+        time_spent = request.GET['time_spent']
     except (KeyError, Option.DoesNotExist):
         return redirect(
             '/riddles' + str(riddle_id) +
-            '?error_message=Option does not exist',
+            '?error_message=Option does not exist&time_spent=' + str(time_spent),
         )
     else:
         if option.correct:
-            return redirect("/riddles/?message=Nice! Choose another one!")
+            return redirect("/riddles/?message=Nice! Choose another one!&time_spent=" + str(time_spent))
         else:
             return redirect(
                 '/riddles/' + str(riddle_id) +
-                '?error_message=Wrong Answer!',
+                '?error_message=Wrong Answer!&time_spent=' + str(time_spent),
             )
 
 

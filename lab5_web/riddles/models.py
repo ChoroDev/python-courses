@@ -26,3 +26,15 @@ class Message(models.Model):
     pub_date = models.DateTimeField(
         'Дата сообщения',
         default=timezone.now)
+
+class UserRiddle(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE
+    )
+    riddle = models.ForeignKey(
+        Riddle,
+        on_delete=models.CASCADE
+    )
+    attempt = models.IntegerField()
+    time_spent = models.IntegerField()
