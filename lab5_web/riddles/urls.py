@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^password-change/', views.PasswordChangeView.as_view()),
     url(r'^([0-9]+)/post/$', views.post, name='post'),
     url(r'^([0-9]+)/msg_list/$', views.msg_list, name='msg_list'),
+    url(r'^([0-9]+)/record_time/$', views.record_time, name='record_time')
 ]

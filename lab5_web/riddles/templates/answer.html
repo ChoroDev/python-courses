@@ -1,9 +1,12 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js">
 </script>
 <script>
+let time_spent = 0
+
 function send_msg_update_request(){
     $.get("msg_list/",{},parse_msg_update_response);
 }
+
 function parse_msg_update_response(data, success){
     res = JSON.parse(data);
     res_str = "";
@@ -26,11 +29,26 @@ function parse_msg_update_response(data, success){
     $("#history").html(res_str);
 }
 
-setInterval(send_msg_update_request, 5000);
+$('body').bind('beforeunload', () => {
+    clearInterval(comment_update)
+    clearInterval(timer)
+});
+
+$('#submit_answer').on('click', () => {
+    $.get("record_time/", { time_spent: time_spent })
+})
+
+let timer = setInterval(() => { 
+    time_spent++
+    time_str = '<strong>Time spent: ' + time_spent + ' (seconds)</strong>' 
+    $("#timer").html(time_str)
+}, 1000)
+let comment_update = setInterval(send_msg_update_request, 5000);
 </script>
 {% extends 'base.html' %}
 {% block main %}
     <h4 class="card-title">{{ riddle.riddle_text }}</h4>
+    <div id="timer"><strong></strong></div>
     {% if error_message %}
         <p class="alert alert-danger">
             <strong>{{ error_message }}</strong>
@@ -55,7 +73,7 @@ setInterval(send_msg_update_request, 5000);
         <div class="input-group mb-3">
             <input type="text" class="form-control" placeholder="Your message" name="message"/>
             <div class="input-group-append">
-                <input class="btn btn-success" type="submit" value="Send"/>
+                <input class="btn btn-success" type="submit" value="Send" id="submit_answer"/>
             </div>
         </div>
     </form>

@@ -13,18 +13,10 @@ from django.http import JsonResponse
 import json
 
 
-def index(request, riddle_id):
+def index(request):
     message = None
     if "message" in request.GET:
         message = request.GET["message"]
-    if "time_spent" in request.GET:
-        riddle = get_object_or_404(Riddle, pk = riddle_id)
-        time_spent = int(request.GET["time_spent"])
-        user_attempt = UserRiddle()
-        user_attempt.user = request.user
-        user_attempt.attempt = 1
-        user_attempt.riddle = riddle
-        user_attempt.time_spent = time_spent
 
     return render(
         request,
@@ -57,19 +49,19 @@ def answer(request, riddle_id):
     riddle = get_object_or_404(Riddle, pk = riddle_id)
     try:
         option = riddle.option_set.get(pk = request.POST['option'])
-        time_spent = request.GET['time_spent']
+        #time_spent = request.GET['time_spent']
     except (KeyError, Option.DoesNotExist):
         return redirect(
             '/riddles' + str(riddle_id) +
-            '?error_message=Option does not exist&time_spent=' + str(time_spent),
+            '?error_message=Option does not exist'
         )
     else:
         if option.correct:
-            return redirect("/riddles/?message=Nice! Choose another one!&time_spent=" + str(time_spent))
+            return redirect("/riddles/?message=Nice! Choose another one!")
         else:
             return redirect(
                 '/riddles/' + str(riddle_id) +
-                '?error_message=Wrong Answer!&time_spent=' + str(time_spent),
+                '?error_message=Wrong Answer!',
             )
 
 
@@ -88,6 +80,18 @@ def msg_list(request, riddle_id):
     for r in res:
         r['pub_date'] = r['pub_date'].strftime('%d.%m.%Y %H:%M:%S')
     return JsonResponse(json.dumps(res), safe=False)
+
+
+def record_time(request, riddle_id):
+    if "time_spent" in request.GET:
+        riddle = get_object_or_404(Riddle, pk = riddle_id)
+        time_spent = int(request.GET["time_spent"])
+        user_attempt = UserRiddle()
+        user_attempt.user = request.user
+        user_attempt.attempt = 1
+        user_attempt.riddle = riddle
+        user_attempt.time_spent = time_spent
+        user_attempt.save()
 
 
 app_url = "/riddles/"
