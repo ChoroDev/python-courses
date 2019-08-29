@@ -118,7 +118,7 @@ let comment_update = setInterval(send_msg_update_request, 5000);
     <hr>
     <h4>Chat</h4>
     {% if user.is_authenticated %}
-        <form action="post/" method="post" id="comment-form">
+    <form action="post/" method="post" id="comment-form">
         {% csrf_token %}
         <div class="input-group mb-3">
             <input type="text" class="form-control" placeholder="Your message" name="message"/>
