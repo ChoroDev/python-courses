@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+    {% block main %}
+        <h4 class="card-title">All students:</h4>
+        {% if message %}
+            <p class="alert alert-success">
+                <strong>{{ message }}</strong>
+            </p>
+        {% endif %}
+        {% if all_students %}
+            <ul>
+                {% for student in all_students %}
+                    <li>
+                        <a href="/students/{{ student.id }}/">
+                            {{ student.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No students.</p>
+        {% endif %}
+    {% endblock %}
